@@ -1,10 +1,12 @@
+import { useHistory } from "react-router-dom";
 import styled from "styled-components";
 
-import { darkModeVar, isLoggedInVar } from "../apollo";
+import { userLogout } from "../apollo";
+import AuthLayout from "../components/auth/AuthLayout";
+import Button from "../components/auth/Button";
+import PageTitle from "../components/PageTitle";
 
-const Container = styled.div`
-    background-color: ${(props) => props.theme.bgColor};
-`;
+
 
 const Title = styled.h1`
     color: ${(props) => props.theme.fontColor};
@@ -12,15 +14,17 @@ const Title = styled.h1`
 
 
 function Home() {
+    const history = useHistory();
+
     return (
-        <Container>
-            <Title>Home</Title>
-            <button onClick={() => darkModeVar(true)}>To dark</button>
-            <button onClick={() => darkModeVar(false)}>To light</button>
-            <button onClick={() => isLoggedInVar(false)}>
+        <AuthLayout>
+            <PageTitle title="Home" />
+            <Title>Home with Login</Title>
+            <Button onClick={() => userLogout(history)}>
                 Log out now!
-            </button>
-        </Container>
+            </Button>
+
+        </AuthLayout>
     );
 }
 
